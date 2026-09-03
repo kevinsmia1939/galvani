@@ -39,6 +39,26 @@ with sqlite3.connect("output.sqlite") as db:
 
 This functionality requires [MDBTools](https://github.com/mdbtools/mdbtools) to be installed on the local system.
 
+## Metrohm AUTOLAB NOVA .nox files
+
+Use the `NOXfile` class to read calculated signals from NOVA files. This is a
+pure-Python reader: NOVA, the Metrohm SDK, and a .NET runtime are not required.
+
+```python
+from galvani import NOXfile
+
+nox = NOXfile("cycling.nox")
+
+# A combined NumPy record array for time/potential/current datasets
+time = nox.data["time/s"]
+potential = nox.data["Ewe/V"]
+current = nox.data["I/A"]
+
+# Or inspect every recorded command and its native NOVA signal names
+for dataset in nox.datasets:
+    print(dataset.command, dataset.signal_names)
+```
+
 # Installation
 
 The latest galvani releases can be installed from [PyPI](https://pypi.org/project/galvani/) via

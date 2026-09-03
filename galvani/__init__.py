@@ -3,5 +3,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from .BioLogic import MPRfile, MPTfile
+from .Nova import NOXfile
 
-__all__ = ["MPRfile", "MPTfile"]
+__all__ = ["MPRfile", "MPTfile", "NOXfile"]
