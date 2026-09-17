@@ -658,6 +658,15 @@ class MPRfile:
             log_file = file_or_path[:-1] + "l"  # log file for runnning experiment
         else:
             mpr_file = file_or_path
+            # File-like inputs need companion paths too. Previously the
+            # no-loop/no-log branches referenced uninitialized variables.
+            source_name = getattr(file_or_path, "name", None)
+            if isinstance(source_name, str):
+                loop_file = source_name[:-4] + "_LOOP.txt"
+                log_file = source_name[:-1] + "l"
+            else:
+                loop_file = ""
+                log_file = ""
         magic = mpr_file.read(len(MPR_MAGIC))
         if magic != MPR_MAGIC:
             raise ValueError("Invalid magic for .mpr file: %s" % magic)
